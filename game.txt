@@ -1,0 +1,58 @@
+print('Добро пожаловать в игру "крестики-нолики"!')
+player1=input("Введите имя первого игрока: ")
+player2=input("Введите имя второго игрока: ")
+print(player1,", вы играете крестиками")
+print(player2,", вы играете ноликами")
+str0=list(map(str,'- 0 1 2'))
+str1=list(map(str,'0 - - -'))
+str2=list(map(str,'1 - - -'))
+str3=list(map(str,'2 - - -'))
+Matrix=(f'{str0},\n,{str1},\n,{str2},\n,{str3}')
+print(*str0)
+print(*str1)
+print(*str2)
+print(*str3)
+step=0
+game='true'
+while game=='true':
+    if step%2==0:
+        fill='x'
+        player=player1
+    else:
+        fill='o'
+        player = player2
+
+    print('Ходит',player,', ход номер ',step+1)
+    inp=input('Введите номер горизонтали и вертикали без пробела от 0 до 2: ')
+    if inp[0]=='0':
+        if inp[1]=='0':
+            str1[2]=fill
+        elif inp[1]=='1':
+            str1[4]=fill
+        elif inp[1]=='2':
+            str1[6]=fill
+    elif inp[0]=='1':
+        if inp[1]=='0':
+            str2[2]=fill
+        elif inp[1]=='1':
+            str2[4]=fill
+        elif inp[1]=='2':
+            str2[6]=fill
+    elif inp[0]=='2':
+        if inp[1]=='0':
+            str3[2]=fill
+        elif inp[1]=='1':
+            str3[4]=fill
+        elif inp[1]=='2':
+            str3[6]=fill
+    if str1[2]==str1[4]==str1[6]==fill or str2[2]==str2[4]==str2[6]==fill or str3[2]==str3[4]==str3[6]==fill or\
+        str1[2]==str2[2]==str3[2]==fill or str1[4]==str2[4]==str3[4]==fill or str1[6]==str2[6]==str3[6]==fill or\
+        str1[2]==str2[4]==str3[6]==fill or str3[2]==str2[4]==str1[6]==fill:
+        game='false'
+    print(*str0)
+    print(*str1)
+    print(*str2)
+    print(*str3)
+    step += 1
+if game=='false':
+    print(player,' выиграл!')
