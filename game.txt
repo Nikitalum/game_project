@@ -1,4 +1,4 @@
-﻿print('Добро пожаловать в игру "крестики-нолики"!!!')
+﻿print('Добро пожаловать в игру "крестики-нолики"!')
 player1=input("Введите имя первого игрока: ")
 player2=input("Введите имя второго игрока: ")
 print(player1,", вы играете крестиками")
@@ -7,12 +7,24 @@ str0=list(map(str,'- 0 1 2'))
 str1=list(map(str,'0 - - -'))
 str2=list(map(str,'1 - - -'))
 str3=list(map(str,'2 - - -'))
-Matrix=(f'{str0},\n,{str1},\n,{str2},\n,{str3}')
-print(*str0)
-print(*str1)
-print(*str2)
-print(*str3)
+def table():
+    print(*str0)
+    print(*str1)
+    print(*str2)
+    print(*str3)
+def block():
+    if b!=0:
+        return "Ошибка ввода данных"
+    elif a[i]=='-':
+        return "true"
+    elif a[i]=='x' or 'o':
+        return "Клетка занята"
+    else:
+        return "Ошибка ввода данных"
 step=0
+a=0
+b=0
+i=0
 game='true'
 while game=='true':
     if step%2==0:
@@ -21,38 +33,38 @@ while game=='true':
     else:
         fill='o'
         player = player2
-
     print('Ходит',player,', ход номер ',step+1)
     inp=input('Введите номер горизонтали и вертикали без пробела от 0 до 2: ')
-    if inp[0]=='0':
-        if inp[1]=='0':
-            str1[2]=fill
-        elif inp[1]=='1':
-            str1[4]=fill
-        elif inp[1]=='2':
-            str1[6]=fill
-    elif inp[0]=='1':
-        if inp[1]=='0':
-            str2[2]=fill
-        elif inp[1]=='1':
-            str2[4]=fill
-        elif inp[1]=='2':
-            str2[6]=fill
-    elif inp[0]=='2':
-        if inp[1]=='0':
-            str3[2]=fill
-        elif inp[1]=='1':
-            str3[4]=fill
-        elif inp[1]=='2':
-            str3[6]=fill
+    if len(inp)==2:
+        b=0
+        if inp[0] == '0':
+            a = str1
+        elif inp[0] == '1':
+            a = str2
+        elif inp[0] == '2':
+            a = str3
+        else:
+            b = "error"
+        if inp[1] == '0':
+            i = 2
+        elif inp[1] == '1':
+            i = 4
+        elif inp[1] == '2':
+            i = 6
+        else:
+            b = "error"
+    else:
+        b="error"
+    if block()=="true":
+        a[i]=fill
+    else:
+        step-=1
+        print(block())
     if str1[2]==str1[4]==str1[6]==fill or str2[2]==str2[4]==str2[6]==fill or str3[2]==str3[4]==str3[6]==fill or\
         str1[2]==str2[2]==str3[2]==fill or str1[4]==str2[4]==str3[4]==fill or str1[6]==str2[6]==str3[6]==fill or\
         str1[2]==str2[4]==str3[6]==fill or str3[2]==str2[4]==str1[6]==fill:
         game='false'
-    print(*str0)
-    print(*str1)
-    print(*str2)
-    print(*str3)
+    table()
     step += 1
 if game=='false':
     print(player,' выиграл!')
